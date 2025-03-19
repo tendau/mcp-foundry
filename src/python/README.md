@@ -73,11 +73,6 @@ uv add mcp[cli] azure-identity python-dotenv azure-ai-projects
 python -m mcp_server_azure_ai_agent
 ```
 
-or 
-```bash
-uv run -m mcp_server_azure_ai_agent
-```
-
 ### Claude Desktop Configuration
 
 Add the following to your Claude Desktop configuration file:
