@@ -1,6 +1,6 @@
 # Azure AI Agent Service MCP Server
 
-This Model Context Protocol (MCP) server enables Claude Desktop to search your content using Azure AI services. It provides access to both document search capabilities via Azure AI Search and web search via Bing Web Grounding tools.
+Python module for a Model Context Protocol (MCP) server that enables Claude Desktop to search content using Azure AI services.
 
 ## Features
 
@@ -10,64 +10,39 @@ This Model Context Protocol (MCP) server enables Claude Desktop to search your c
 - **Multiple Data Sources** - Search both private documents and the public web
 - **Source Citations** - Web search results include citations to original sources
 
-## Requirements
+## Installation
 
-- **Python:** Version 3.10 or higher
-- **Claude Desktop:** Latest version
-- **Azure Resources:** 
-  - Azure AI Project with Azure AI Search and Bing connections
-  - Azure AI Search service with an index containing vectorized text data
+### Prerequisites
+- Python 3.10+
+- Azure AI Project with configured connections
+- Azure AI Search service with indexed content
 
-## Setup
+### Setup
 
-### 1. Azure AI Project Configuration
-
-Before using the server, you need to:
-
-1. **Create an Azure AI Project:**
-   - Go to the Azure Portal and create a new Azure AI Project
-   - Note the project connection string and model deployment name
-
-2. **Create an Azure AI Search Connection:**
-   - In your Azure AI Project, add a connection to your Azure AI Search service
-   - Note the connection name and index name
-
-3. **Create a Bing Web Search Connection:**
-   - In your Azure AI Project, add a connection to Bing Search service
-   - Note the connection name
-
-4. **Authenticate with Azure:**
+1. **Install the package:**
    ```bash
-   az login
+   # Create and activate virtual environment
+   uv venv
+   .venv\Scripts\activate  # On Windows
+   source .venv/bin/activate  # On macOS/Linux
+
+   # Install dependencies
+   uv add mcp[cli] azure-identity python-dotenv azure-ai-projects
    ```
 
-### 2. Environment Setup
-
-Create an environment file (`.env`) with the following variables:
-
-```bash
-PROJECT_CONNECTION_STRING=your-project-connection-string
-MODEL_DEPLOYMENT_NAME=your-model-deployment-name
-AI_SEARCH_CONNECTION_NAME=your-search-connection-name
-BING_CONNECTION_NAME=your-bing-connection-name
-AI_SEARCH_INDEX_NAME=your-index-name
-```
-
-### 3. Python Environment
-
-```bash
-# Create and activate virtual environment
-uv venv
-.venv\Scripts\activate  # On Windows
-source .venv/bin/activate  # On macOS/Linux
-
-# Install dependencies
-uv add mcp[cli] azure-identity python-dotenv azure-ai-projects
-```
+2. **Configure environment variables:**
+   Create an `.env` file with:
+   ```bash
+   PROJECT_CONNECTION_STRING=your-project-connection-string
+   MODEL_DEPLOYMENT_NAME=your-model-deployment-name
+   AI_SEARCH_CONNECTION_NAME=your-search-connection-name
+   BING_CONNECTION_NAME=your-bing-connection-name
+   AI_SEARCH_INDEX_NAME=your-index-name
+   ```
 
 ## Usage
 
-### Running the Server Directly
+### Running the Server
 
 ```bash
 python -m mcp_server_azure_ai_agent
@@ -86,7 +61,8 @@ Add the following to your Claude Desktop configuration file:
         "--directory",
         "/ABSOLUTE/PATH/TO/PARENT/FOLDER",
         "run",
-        "-m", "mcp_server_azure_ai_agent"
+        "-m",
+        "mcp_server_azure_ai_agent"
       ],
       "env": {
         "PROJECT_CONNECTION_STRING": "your-project-connection-string",
@@ -100,14 +76,7 @@ Add the following to your Claude Desktop configuration file:
 }
 ```
 
-## Testing Your Server
-
-Once configured in Claude Desktop, you can try commands like:
-
-- "Search my documents for information about machine learning"
-- "Find current news about artificial intelligence on the web"
-
-## Available Tools
+## API Reference
 
 ### 1. `search_index`
 
