@@ -2,7 +2,7 @@
 
 A Model Context Protocol (MCP) adapter that enables Claude Desktop to connect to your existing Azure AI Agents.
 
-![demo](img/mcp-foundry-2.gif)
+![demo](img/mcp-azs.gif)
 
 ## Overview
 
@@ -100,6 +100,8 @@ The server provides the following tools:
 
 - `query` (string): The question or request to send to the agent
 - `thread_id` (string, optional): Thread ID for continuation of conversation
+
+`list_agents`: List all available Azure AI Agents in your project.
 
 ## Development Notes
 This project follows a polyglot structure with Python code located in the python directory. When running or developing:
