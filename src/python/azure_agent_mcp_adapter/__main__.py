@@ -4,7 +4,7 @@ import os
 import sys
 import logging
 from datetime import datetime, timedelta
-from typing import Any, Optional, Tuple, List
+from typing import Any, Optional, Tuple
 
 from dotenv import load_dotenv
 from mcp.server.fastmcp import FastMCP
@@ -12,7 +12,7 @@ from azure.ai.projects import AIProjectClient
 from azure.ai.projects.models import MessageRole
 from azure.identity import DefaultAzureCredential
 
-# Configure logging
+# Configure logging - only essential information
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
@@ -26,7 +26,6 @@ mcp = FastMCP(
     description="MCP adapter for Azure AI Agent Service integration",
     dependencies=["azure-identity", "python-dotenv", "azure-ai-projects"],
 )
-logger.info("MCP adapter instance created")
 
 
 class AzureAgentAdapter:
@@ -34,19 +33,13 @@ class AzureAgentAdapter:
 
     def __init__(self):
         """Initialize Azure AI Agent client with credentials from environment variables."""
-        logger.info("Initializing Azure AI Agent adapter...")
-
         # Load environment variables
         self.project_connection_string = os.getenv("PROJECT_CONNECTION_STRING")
         self.default_agent_id = os.getenv("DEFAULT_AGENT_ID")
 
         # Validate essential environment variables
         if not self.project_connection_string:
-            error_msg = (
-                "Missing required environment variable: PROJECT_CONNECTION_STRING"
-            )
-            logger.error(error_msg)
-            raise ValueError(error_msg)
+            raise ValueError("Missing required environment variable: PROJECT_CONNECTION_STRING")
 
         # Initialize AIProjectClient
         try:
@@ -54,17 +47,14 @@ class AzureAgentAdapter:
                 credential=DefaultAzureCredential(),
                 conn_str=self.project_connection_string,
             )
-            logger.info("AIProjectClient initialized successfully")
         except Exception as e:
-            logger.error(f"Error initializing AIProjectClient: {str(e)}")
+            logger.error(f"Failed to initialize AIProjectClient: {str(e)}")
             raise
 
         # Cache for agents and threads
         self._agent_cache = {}
         self._thread_cache = {}
         self._cache_expiry = {}
-
-        logger.info("Azure AI Agent adapter initialized")
 
     async def _get_agent(self, agent_id: str) -> Any:
         """Get an agent by ID with caching."""
@@ -73,12 +63,10 @@ class AzureAgentAdapter:
         # Check cache
         if agent_id in self._agent_cache:
             if now < self._cache_expiry.get(agent_id, now):
-                logger.info(f"Using cached agent: {agent_id}")
                 return self._agent_cache[agent_id]
 
         # Fetch agent
         try:
-            logger.info(f"Fetching agent: {agent_id}")
             agent = self.client.agents.get_agent(agent_id=agent_id)
 
             # Cache agent for 1 hour
@@ -87,24 +75,22 @@ class AzureAgentAdapter:
 
             return agent
         except Exception as e:
-            logger.error(f"Error fetching agent {agent_id}: {str(e)}")
+            logger.error(f"Agent retrieval failed - ID: {agent_id}, Error: {str(e)}")
             raise ValueError(f"Agent not found or inaccessible: {agent_id}")
 
     async def _get_thread(self, thread_id: Optional[str] = None) -> Tuple[str, Any]:
         """Get a thread by ID or create a new one."""
         if thread_id and thread_id in self._thread_cache:
-            logger.info(f"Using existing thread: {thread_id}")
             return thread_id, self._thread_cache[thread_id]
 
         # Create new thread
         try:
-            logger.info("Creating new thread")
             thread = self.client.agents.create_thread()
             thread_id = thread.id
             self._thread_cache[thread_id] = thread
             return thread_id, thread
         except Exception as e:
-            logger.error(f"Error creating thread: {str(e)}")
+            logger.error(f"Thread creation failed: {str(e)}")
             raise
 
     async def query_agent(
@@ -121,33 +107,20 @@ class AzureAgentAdapter:
         Returns:
             Tuple of (thread_id, response_text)
         """
-        logger.info(f"Querying agent {agent_id} with: {query}")
-        logger.info(
-            f"Project connection string: {self.project_connection_string[:10]}..."
-        )
-
         try:
             # Get or create agent and thread
             agent = await self._get_agent(agent_id)
-            logger.info(f"Successfully retrieved agent: {agent.id}")
-
             thread_id, thread = await self._get_thread(thread_id)
-            logger.info(f"Using thread: {thread_id}")
 
             # Add message to thread
-            logger.info("Adding message to thread...")
             message = self.client.agents.create_message(
                 thread_id=thread_id, role=MessageRole.USER, content=query
             )
-            logger.info(f"Message added: {message.id}")
 
             # Process the run
-            logger.info(f"Creating and processing run with agent {agent_id}...")
             run = self.client.agents.create_and_process_run(
                 thread_id=thread_id, agent_id=agent_id
             )
-
-            logger.info(f"Run status: {run.status}")
 
             if run.status == "failed":
                 error_msg = f"Agent run failed: {run.last_error}"
@@ -182,17 +155,15 @@ class AzureAgentAdapter:
             return thread_id, result.strip()
 
         except Exception as e:
-            logger.error(f"Error during agent query: {str(e)}")
+            logger.error(f"Agent query failed - ID: {agent_id}, Error: {str(e)}")
             raise
 
 
 # Initialize Azure AI Agent adapter with proper error handling
 try:
-    logger.info("Starting initialization of agent adapter...")
     agent_adapter = AzureAgentAdapter()
-    logger.info("Agent adapter initialized successfully")
 except Exception as e:
-    logger.error(f"Error initializing agent adapter: {str(e)}")
+    logger.error(f"Adapter initialization failed: {str(e)}")
     agent_adapter = None
 
 
@@ -200,17 +171,7 @@ except Exception as e:
 async def connect_agent(agent_id: str, query: str, thread_id: str = None) -> str:
     """
     Connect to a specific Azure AI Agent.
-
-    Args:
-        agent_id: The ID of the Azure AI Agent to connect to
-        query: The question or request to send to the agent
-        thread_id: Optional thread ID for continuation of conversation
-
-    Returns:
-        The agent's response
     """
-    logger.info(f"Tool called: connect_agent({agent_id}, {query}, {thread_id})")
-
     if agent_adapter is None:
         return "Error: Azure AI Agent adapter is not initialized. Check server logs for details."
 
@@ -222,25 +183,14 @@ async def connect_agent(agent_id: str, query: str, thread_id: str = None) -> str
             f"## Response from Azure AI Agent\n\nThread ID: {thread_id}\n\n{response}"
         )
     except Exception as e:
-        error_msg = f"Error connecting to agent: {str(e)}"
-        logger.error(error_msg)
-        return error_msg
+        return f"Error connecting to agent: {str(e)}"
 
 
 @mcp.tool()
 async def query_default_agent(query: str, thread_id: str = None) -> str:
     """
-    Send a query to the default configured agent.
-
-    Args:
-        query: The question or request to send to the agent
-        thread_id: Optional thread ID for continuation of conversation
-
-    Returns:
-        The agent's response
+    Send a query to the default configured Azure AI Agent.
     """
-    logger.info(f"Tool called: query_default_agent({query}, {thread_id})")
-
     if agent_adapter is None:
         return "Error: Azure AI Agent adapter is not initialized. Check server logs for details."
 
@@ -253,15 +203,36 @@ async def query_default_agent(query: str, thread_id: str = None) -> str:
         )
         return f"## Response from Default Azure AI Agent\n\nThread ID: {thread_id}\n\n{response}"
     except Exception as e:
-        error_msg = f"Error querying default agent: {str(e)}"
-        logger.error(error_msg)
-        return error_msg
+        return f"Error querying default agent: {str(e)}"
+
+
+@mcp.tool()
+async def list_agents() -> str:
+    """
+    List available agents in the Azure AI Agent Service.
+    """
+    if agent_adapter is None:
+        return "Error: Azure AI Agent adapter is not initialized. Check server logs for details."
+        
+    try:
+        agents = agent_adapter.client.agents.list_agents()
+        if not agents or not agents.data:
+            return "No agents found in the Azure AI Agent Service."
+            
+        result = "## Available Azure AI Agents\n\n"
+        for agent in agents.data:
+            result += f"- **{agent.name}**: `{agent.id}`\n"
+            
+        if agent_adapter.default_agent_id:
+            result += f"\n**Default Agent ID**: `{agent_adapter.default_agent_id}`"
+            
+        return result
+    except Exception as e:
+        return f"Error listing agents: {str(e)}"
 
 
 def main():
     """Run the MCP adapter."""
-    logger.info("Starting MCP adapter run...")
-
     # Load environment variables
     load_dotenv()
 
