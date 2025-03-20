@@ -1,32 +1,33 @@
-# Azure AI Agent Service MCP Server
+# Azure AI Agent Service MCP Adapter
 
-A Model Context Protocol (MCP) server that enables Claude Desktop to search content using Azure AI Foundry - both document search via Azure AI Search and web search via Bing Web Grounding tools.
+A Model Context Protocol (MCP) adapter that enables Claude Desktop to connect to your existing Azure AI Agents.
 
 ![demo](img/mcp-foundry-2.gif)
 
+## Overview
 
+This adapter creates a bridge between Claude Desktop and your existing Azure AI Agents. It allows Claude to interact with your agents through the Model Context Protocol (MCP), without having to build any custom code.
 
 ## Features
 
-- 🔍 **Document Search** - Search indexed documents with Azure AI Search
-- 🌐 **Web Search** - Find information online with Bing Web Grounding
-- 💡 **Intelligent Results** - AI-optimized search results with source citations
-- 🔗 **Multiple Sources** - Search across private documents and public web
+- 🤖 **Agent Integration** - Connect to your existing Azure AI Agents
+- 🔄 **Seamless Workflow** - Use your agents directly within Claude Desktop
+- 🛡️ **Secure** - All connections use your Azure credentials
 
 ## Prerequisites
 
 - Python 3.10+
 - Claude Desktop (latest version)
-- Azure AI Project with Azure AI Search and Bing connections
-- Azure AI Search service with an indexed collection
+- Azure CLI (`az`) installed and configured
+- Existing Azure AI Agents with desired capabilities
 
 ## Quick Start
 
 ### 1. Configure Azure
 
-1. Create an Azure AI Project and note the connection string and model deployment name
-2. Add an Azure AI Search connection and note connection name and index name
-3. Add a Bing Web Search connection and note the connection name
+1. Create Azure AI Agents through Azure AI Studio
+2. Note your Azure AI Project connection string
+3. Note your agents' IDs (you'll need these to connect to specific agents)
 4. Authenticate: `az login`
 
 ### 2. Set Environment Variables
@@ -34,11 +35,11 @@ A Model Context Protocol (MCP) server that enables Claude Desktop to search cont
 Create an `.env` file:
 
 ```bash
+# Required
 PROJECT_CONNECTION_STRING=your-project-connection-string
-MODEL_DEPLOYMENT_NAME=your-model-deployment-name
-AI_SEARCH_CONNECTION_NAME=your-search-connection-name
-BING_CONNECTION_NAME=your-bing-connection-name
-AI_SEARCH_INDEX_NAME=your-index-name
+
+# Optional (configure default agent)
+DEFAULT_AGENT_ID=your-default-agent-id
 ```
 
 ### 3. Install and Run
@@ -52,8 +53,8 @@ source .venv/bin/activate  # On macOS/Linux
 # Install dependencies
 uv add mcp[cli] azure-identity python-dotenv azure-ai-projects
 
-# Run server
-python -m mcp_server_azure_ai_agent
+# Run adapter
+python -m azure_agent_mcp_adapter
 ```
 
 ### 4. Configure Claude Desktop
@@ -63,21 +64,18 @@ Add to your Claude Desktop configuration file:
 ```json
 {
   "mcpServers": {
-    "azure-ai-agent": {
+    "azure-agent": {
       "command": "uv",
       "args": [
         "--directory",
         "/ABSOLUTE/PATH/TO/PARENT/FOLDER",
         "run",
         "-m",
-        "mcp_server_azure_ai_agent"
+        "azure_agent_mcp_adapter"
       ],
       "env": {
         "PROJECT_CONNECTION_STRING": "your-project-connection-string",
-        "MODEL_DEPLOYMENT_NAME": "your-model-deployment-name",
-        "AI_SEARCH_CONNECTION_NAME": "your-search-connection-name",
-        "BING_CONNECTION_NAME": "your-bing-connection-name",
-        "AI_SEARCH_INDEX_NAME": "your-index-name"
+        "DEFAULT_AGENT_ID": "your-default-agent-id"
       }
     }
   }
@@ -86,19 +84,36 @@ Add to your Claude Desktop configuration file:
 
 ## Available Tools
 
-### `search_index`
+The server provides the following tools:
 
-Search documents in your Azure AI Search index.
+`connect_agent`: Connect to a specific Azure AI Agent by ID.
 
-### `web_search`
+**Parameters:**
 
-Search the web using Bing Web Grounding.
+- `agent_id` (string): The ID of the Azure AI Agent to connect to
+- `query` (string): The question or request to send to the agent
+- `thread_id` (string, optional): Thread ID for continuation of conversation
+
+`query_default_agent`: Send a query to the default configured agent.
+
+**Parameters:**
+
+- `query` (string): The question or request to send to the agent
+- `thread_id` (string, optional): Thread ID for continuation of conversation
+
+## Development Notes
+This project follows a polyglot structure with Python code located in the python directory. When running or developing:
+
+1. Always activate the virtual environment from the project root
+2. Navigate to the python directory when running Python commands
+3. For package installation, ensure you're in the python directory where pyproject.toml is located
 
 ## Troubleshooting
 
-- **Connection Issues:** Verify Azure credentials, connection strings, and project configuration
-- **Search Failures:** Ensure index exists, contains data, and queries are valid
+- **Connection Issues**: Verify Azure credentials, connection strings, and agent configurations
+- **Agent Failures**: Ensure your agents are correctly configured and that the queries are valid for the agent's capabilities
+- **Module Not Found**: Ensure you're running the module from the python directory
 
 ## License
 
-MIT License
+This project is licensed under the MIT License.
