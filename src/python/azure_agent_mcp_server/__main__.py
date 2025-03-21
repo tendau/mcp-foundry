@@ -299,15 +299,18 @@ async def list_agents() -> str:
 
 
 async def main():
-    """Run the MCP server."""
+    """Run the MCP server initialization."""
     # Load environment variables
     load_dotenv()
     # Initialize the server asynchronously
     await initialize_server()
 
 
+# FEEBACK - WHy 2 main 
 if __name__ == "__main__":
     import asyncio
-
-    asyncio.run(initialize_server())
+    
+    # use main() for init instead of calling initialize_server() directly
+    asyncio.run(main())
+    # Run the MCP server
     mcp.run()
