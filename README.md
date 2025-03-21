@@ -1,8 +1,13 @@
 # Azure AI Agent Service MCP Server
-
-An MCP server implementation that enables any MCP-compatible client to connect to your existing Azure AI Agents.
+This MCP server integrates with Azure AI Foundry to enable connections to your existing Azure AI Agents, utilizing the wide range of models and knowledge tools available within Azure AI Foundry, such as Azure AI Search and Bing Web Grounding.
 
 ![demo](img/mcp-azs.gif)
+
+[![GitHub watchers](https://img.shields.io/github/watchers/[username]/mcp-foundry.svg?style=social&label=Watch)](https://github.com/[azure-ai-foundry]/mcp-foundry/watchers)
+[![GitHub forks](https://img.shields.io/github/forks/[username]/mcp-foundry.svg?style=social&label=Fork)](https://github.com/[azure-ai-foundry]/mcp-foundry/fork)
+[![GitHub stars](https://img.shields.io/github/stars/[username]/mcp-foundry?style=social&label=Star)](https://github.com/[azure-ai-foundry]/mcp-foundry/stargazers)
+
+[![Azure AI Community Discord](https://dcbadge.vercel.app/api/server/ByRwuEEgH4)](https://discord.gg/REmjGvvFpW)
 
 ## Features
 
@@ -14,6 +19,7 @@ An MCP server implementation that enables any MCP-compatible client to connect t
 ## Tools
 
 - **connect_agent**
+
   - Connect to a specific Azure AI Agent by ID
   - Inputs:
     - `agent_id` (string): The ID of the Azure AI Agent to connect to
@@ -22,6 +28,7 @@ An MCP server implementation that enables any MCP-compatible client to connect t
   - Returns: Formatted response from the agent
 
 - **query_default_agent**
+
   - Send a query to the default configured agent
   - Inputs:
     - `query` (string): The question or request to send to the agent
