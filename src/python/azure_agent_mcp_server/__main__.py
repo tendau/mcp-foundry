@@ -73,7 +73,6 @@ class AzureAgentServer:
 
     async def _get_agent(self, agent_id: str) -> Agent:
         """Get an agent by ID with caching."""
-        # #FEEDBACK: Method is declared async but has no awaits
         now = datetime.now()
 
         # Check cache
@@ -83,7 +82,6 @@ class AzureAgentServer:
 
         # Fetch agent
         try:
-            # #FEEDBACK: Using proper async client method
             agent = await self.client.agents.get_agent(agent_id=agent_id)
 
             # Cache agent for 1 hour
