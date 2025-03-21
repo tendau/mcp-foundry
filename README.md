@@ -1,12 +1,12 @@
-# Azure AI Agent Service MCP Adapter
+# Azure AI Agent Service MCP Server
 
-A Model Context Protocol (MCP) adapter that enables Claude Desktop to connect to your existing Azure AI Agents.
+A Model Context Protocol (MCP) server that enables Claude Desktop to connect to your existing Azure AI Agents.
 
 ![demo](img/mcp-azs.gif)
 
 ## Overview
 
-This adapter creates a bridge between Claude Desktop and your existing Azure AI Agents. It allows Claude to interact with your agents through the Model Context Protocol (MCP), without having to build any custom code.
+This server creates a bridge between Claude Desktop and your existing Azure AI Agents. It allows Claude to interact with your agents through the Model Context Protocol (MCP), without having to build any custom code.
 
 ## Features
 
@@ -51,10 +51,10 @@ uv venv
 source .venv/bin/activate  # On macOS/Linux
 
 # Install dependencies
-uv add mcp[cli] azure-identity python-dotenv azure-ai-projects
+uv add mcp[cli] azure-identity python-dotenv azure-ai-projects aiohttp
 
-# Run adapter
-python -m azure_agent_mcp_adapter
+# Run server (from root)
+python -m python.azure_agent_mcp_server
 ```
 
 ### 4. Configure Claude Desktop
@@ -71,7 +71,7 @@ Add to your Claude Desktop configuration file:
         "/ABSOLUTE/PATH/TO/PARENT/FOLDER",
         "run",
         "-m",
-        "azure_agent_mcp_adapter"
+        "azure_agent_mcp_server"
       ],
       "env": {
         "PROJECT_CONNECTION_STRING": "your-project-connection-string",
