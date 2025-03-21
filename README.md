@@ -81,6 +81,7 @@ Add to your Claude Desktop configuration file:
   }
 }
 ```
+> **Note**: Each client session maintains its own isolated conversation history for privacy and proper context management.
 
 ## Available Tools
 
