@@ -3,9 +3,9 @@ This MCP server integrates with Azure AI Foundry to enable connections to your e
 
 ![demo](img/mcp-azs.gif)
 
-[![GitHub watchers](https://img.shields.io/github/watchers/[username]/mcp-foundry.svg?style=social&label=Watch)](https://github.com/[azure-ai-foundry]/mcp-foundry/watchers)
-[![GitHub forks](https://img.shields.io/github/forks/[username]/mcp-foundry.svg?style=social&label=Fork)](https://github.com/[azure-ai-foundry]/mcp-foundry/fork)
-[![GitHub stars](https://img.shields.io/github/stars/[username]/mcp-foundry?style=social&label=Star)](https://github.com/[azure-ai-foundry]/mcp-foundry/stargazers)
+[![GitHub watchers](https://img.shields.io/github/watchers/azure-ai-foundry/mcp-foundry.svg?style=social&label=Watch)](https://github.com/azure-ai-foundry/mcp-foundry/watchers)
+[![GitHub forks](https://img.shields.io/github/forks/azure-ai-foundry/mcp-foundry.svg?style=social&label=Fork)](https://github.com/azure-ai-foundry/mcp-foundry/fork)
+[![GitHub stars](https://img.shields.io/github/stars/azure-ai-foundry/mcp-foundry?style=social&label=Star)](https://github.com/azure-ai-foundry/mcp-foundry/stargazers)
 
 [![Azure AI Community Discord](https://dcbadge.vercel.app/api/server/ByRwuEEgH4)](https://discord.gg/REmjGvvFpW)
 
@@ -79,7 +79,7 @@ source .venv/bin/activate  # On macOS/Linux
 # Install dependencies
 pip install mcp[cli] azure-identity python-dotenv azure-ai-projects aiohttp
 
-# Run server directly (from src/python)
+# Run server directly (from ./src/python)
 python -m azure_agent_mcp_server
 ```
 
@@ -94,7 +94,7 @@ source .venv/bin/activate  # On macOS/Linux
 # Install dependencies
 uv add mcp[cli] azure-identity python-dotenv azure-ai-projects aiohttp
 
-# Run server
+# Run server (F)
 uv run -m azure_agent_mcp_server
 ```
 
@@ -121,6 +121,28 @@ To use with Claude Desktop, add the following to your configuration file:
     }
   }
 }
+```
+
+If you don't want to use `uv`, you can use python:
+```json
+{
+  "mcpServers": {
+    "azure-agent": {
+      "command": "python",
+      "args": [
+        "-m",
+        "azure_agent_mcp_server"
+      ],
+      "cwd": "/ABSOLUTE/PATH/TO/PARENT/FOLDER",
+      "env": {
+        "PYTHONPATH": "/ABSOLUTE/PATH/TO/PARENT/FOLDER",
+        "PROJECT_CONNECTION_STRING": "your-project-connection-string",
+        "DEFAULT_AGENT_ID": "your-default-agent-id"
+      }
+    }
+  }
+}
+
 ```
 
 ### Usage with Other MCP Clients
