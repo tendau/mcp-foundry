@@ -11,7 +11,7 @@ from azure.ai.projects.models import MessageRole, Agent
 from azure.identity.aio import DefaultAzureCredential
 
 logging.basicConfig(
-    level=logging.INFO,
+    level=logging.WARNING,
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
     stream=sys.stderr,
 )
@@ -41,6 +41,7 @@ def initialize_server():
         ai_client = AIProjectClient.from_connection_string(
             credential=credential,
             conn_str=project_connection_string,
+            user_agent="mcp-azure-ai-agent",
         )
         return True
     except Exception as e:
@@ -190,4 +191,6 @@ async def list_agents() -> str:
 
 
 if __name__ == "__main__":
+    status = "successfully initialized" if server_initialized else "initialization failed"
+    print(f"\n{'='*50}\nAzure AI Agent MCP Server {status}\nStarting server...\n{'='*50}\n")
     mcp.run()
