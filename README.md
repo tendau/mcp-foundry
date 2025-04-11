@@ -1,4 +1,5 @@
 # Azure AI Agent Service MCP Server
+
 This MCP server integrates with Azure AI Foundry to enable connections to your existing Azure AI Agents, utilizing the wide range of models and knowledge tools available within Azure AI Foundry, such as Azure AI Search and Bing Web Grounding.
 
 ![demo](img/mcp-azs.gif)
@@ -68,7 +69,7 @@ DEFAULT_AGENT_ID=your-default-agent-id
 - Azure CLI `(az)` installed and configured
 - Existing Azure AI Agents with desired capabilities
 
-### Setup
+#### Python Setup
 
 ```bash
 # Setup environment
@@ -98,9 +99,27 @@ uv add mcp[cli] azure-identity python-dotenv azure-ai-projects aiohttp
 uv run -m azure_agent_mcp_server
 ```
 
+#### TypeScript Setup
+
+```bash
+# Navigate to the TypeScript directory
+cd src/typescript
+
+# Install dependencies
+npm install
+
+# Build the server
+npm run build
+
+# Run the server
+npm start
+```
+
 ### Usage with Claude Desktop
 
 To use with Claude Desktop, add the following to your configuration file:
+
+#### Python Version
 
 ```json
 {
@@ -124,15 +143,13 @@ To use with Claude Desktop, add the following to your configuration file:
 ```
 
 If you don't want to use `uv`, you can use python:
+
 ```json
 {
   "mcpServers": {
     "azure-agent": {
       "command": "python",
-      "args": [
-        "-m",
-        "azure_agent_mcp_server"
-      ],
+      "args": ["-m", "azure_agent_mcp_server"],
       "cwd": "/ABSOLUTE/PATH/TO/PARENT/FOLDER",
       "env": {
         "PYTHONPATH": "/ABSOLUTE/PATH/TO/PARENT/FOLDER",
@@ -142,7 +159,23 @@ If you don't want to use `uv`, you can use python:
     }
   }
 }
+```
 
+#### TypeScript Version
+
+```json
+{
+  "mcpServers": {
+    "azure-agent": {
+      "command": "node",
+      "args": ["/ABSOLUTE/PATH/TO/mcp-foundry/src/typescript/build/index.js"],
+      "env": {
+        "PROJECT_CONNECTION_STRING": "your-project-connection-string",
+        "DEFAULT_AGENT_ID": "your-default-agent-id"
+      }
+    }
+  }
+}
 ```
 
 ### Usage with Other MCP Clients
@@ -151,11 +184,19 @@ This server follows the MCP protocol specification and can be used with any MCP-
 
 ## Development Notes
 
-This project follows a polyglot structure with Python code located in the python directory. When running or developing:
+This project follows a polyglot structure with implementations in both Python and TypeScript:
 
-1. Always activate the virtual environment from the project root
-2. Navigate to the python directory when running Python commands
-3. For package installation, ensure you're in the python directory where pyproject.toml is located
+### Python Development
+
+1. Python code is located in the src/python directory
+2. Always activate the virtual environment from the project root
+3. For package installation, ensure you're in the Python directory where pyproject.toml is located
+
+### TypeScript Development
+
+1. TypeScript code is located in the src/typescript directory
+2. Uses ES Modules for modern JavaScript compatibility
+3. Standard npm workflow: `npm install` → `npm run build` → `npm start`
 
 ## License
 
