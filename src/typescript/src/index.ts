@@ -134,6 +134,23 @@ async function queryAgent(
   }
 }
 
+/**
+ * Check if server is initialized and return error response if not
+ */
+function checkServerInitialized() {
+  if (!serverInitialized) {
+    return {
+      content: [
+        {
+          type: "text" as const,
+          text: "Error: Azure AI Agent server is not initialized. Check server logs for details.",
+        },
+      ],
+    };
+  }
+  return null;
+}
+
 // Initialize server
 const serverInitialized = initializeServer();
 
@@ -146,9 +163,10 @@ const mcp = new McpServer({
 
 // Register tools
 mcp.tool(
-  "connect_agent",
+  "query_agent",
+  "Query a specific Azure AI Agent",
   {
-    agent_id: z.string().describe("The ID of the Azure AI Agent to connect to"),
+    agent_id: z.string().describe("The ID of the Azure AI Agent to query"),
     query: z.string().describe("The question or request to send to the agent"),
     thread_id: z
       .string()
@@ -156,16 +174,8 @@ mcp.tool(
       .describe("Thread ID for conversation continuation"),
   },
   async ({ agent_id, query, thread_id }) => {
-    if (!serverInitialized) {
-      return {
-        content: [
-          {
-            type: "text",
-            text: "Error: Azure AI Agent server is not initialized. Check server logs for details.",
-          },
-        ],
-      };
-    }
+    const errorResponse = checkServerInitialized();
+    if (errorResponse) return errorResponse;
 
     try {
       const { response, threadId } = await queryAgent(
@@ -177,7 +187,7 @@ mcp.tool(
       return {
         content: [
           {
-            type: "text",
+            type: "text" as const,
             text: `## Response from Azure AI Agent\n\n${response}\n\n(thread_id: ${threadId})`,
           },
         ],
@@ -186,8 +196,8 @@ mcp.tool(
       return {
         content: [
           {
-            type: "text",
-            text: `Error connecting to agent: ${
+            type: "text" as const,
+            text: `Error querying agent: ${
               error instanceof Error ? error.message : String(error)
             }`,
           },
@@ -199,6 +209,7 @@ mcp.tool(
 
 mcp.tool(
   "query_default_agent",
+  "Query the default Azure AI Agent",
   {
     query: z.string().describe("The question or request to send to the agent"),
     thread_id: z
@@ -207,23 +218,15 @@ mcp.tool(
       .describe("Thread ID for conversation continuation"),
   },
   async ({ query, thread_id }) => {
-    if (!serverInitialized) {
-      return {
-        content: [
-          {
-            type: "text",
-            text: "Error: Azure AI Agent server is not initialized. Check server logs for details.",
-          },
-        ],
-      };
-    }
+    const errorResponse = checkServerInitialized();
+    if (errorResponse) return errorResponse;
 
     if (!DEFAULT_AGENT_ID) {
       return {
         content: [
           {
-            type: "text",
-            text: "Error: No default agent configured. Set DEFAULT_AGENT_ID environment variable or use connect_agent tool.",
+            type: "text" as const,
+            text: "Error: No default agent configured. Set DEFAULT_AGENT_ID environment variable or use query_agent tool.",
           },
         ],
       };
@@ -239,7 +242,7 @@ mcp.tool(
       return {
         content: [
           {
-            type: "text",
+            type: "text" as const,
             text: `## Response from Default Azure AI Agent\n\n${response}\n\n(thread_id: ${threadId})`,
           },
         ],
@@ -248,7 +251,7 @@ mcp.tool(
       return {
         content: [
           {
-            type: "text",
+            type: "text" as const,
             text: `Error querying default agent: ${
               error instanceof Error ? error.message : String(error)
             }`,
@@ -259,60 +262,54 @@ mcp.tool(
   }
 );
 
-mcp.tool("list_agents", {}, async () => {
-  if (!serverInitialized) {
-    return {
-      content: [
-        {
-          type: "text",
-          text: "Error: Azure AI Agent server is not initialized. Check server logs for details.",
-        },
-      ],
-    };
-  }
+mcp.tool(
+  "list_agents",
+  "List all available Azure AI Agents",
+  {},
+  async () => {
+    const errorResponse = checkServerInitialized();
+    if (errorResponse) return errorResponse;
 
-  try {
-    if (!aiClient) {
-      throw new Error("AI client not initialized");
-    }
+    try {
+      // We know aiClient is not null if serverInitialized is true
+      const agents = await aiClient!.agents.listAgents();
+      if (!agents.data || agents.data.length === 0) {
+        return {
+          content: [
+            {
+              type: "text" as const,
+              text: "No agents found in the Azure AI Agent Service.",
+            },
+          ],
+        };
+      }
 
-    const agents = await aiClient.agents.listAgents();
-    if (!agents.data || agents.data.length === 0) {
+      let result = "## Available Azure AI Agents\n\n";
+      for (const agent of agents.data) {
+        result += `- **${agent.name}** (ID: \`${agent.id}\`)\n`;
+      }
+
+      if (DEFAULT_AGENT_ID) {
+        result += `\n**Default Agent ID**: \`${DEFAULT_AGENT_ID}\``;
+      }
+
+      return {
+        content: [{ type: "text" as const, text: result }],
+      };
+    } catch (error) {
       return {
         content: [
           {
-            type: "text",
-            text: "No agents found in the Azure AI Agent Service.",
+            type: "text" as const,
+            text: `Error listing agents: ${
+              error instanceof Error ? error.message : String(error)
+            }`,
           },
         ],
       };
     }
-
-    let result = "## Available Azure AI Agents\n\n";
-    for (const agent of agents.data) {
-      result += `- **${agent.name}** (ID: \`${agent.id}\`)\n`;
-    }
-
-    if (DEFAULT_AGENT_ID) {
-      result += `\n**Default Agent ID**: \`${DEFAULT_AGENT_ID}\``;
-    }
-
-    return {
-      content: [{ type: "text", text: result }],
-    };
-  } catch (error) {
-    return {
-      content: [
-        {
-          type: "text",
-          text: `Error listing agents: ${
-            error instanceof Error ? error.message : String(error)
-          }`,
-        },
-      ],
-    };
   }
-});
+);
 
 // Main function
 async function main() {
