@@ -1,6 +1,11 @@
 version = 1
-revision = 1
 requires-python = ">=3.10"
+
+[manifest]
+members = [
+    "azure-agent-mcp-server",
+    "mcp-server-for-foundry-labs",
+]
 
 [[package]]
 name = "aiohappyeyeballs"
@@ -582,6 +587,21 @@ wheels = [
 cli = [
     { name = "python-dotenv" },
     { name = "typer" },
+]
+
+[[package]]
+name = "mcp-server-for-foundry-labs"
+version = "0.1.0"
+source = { editable = "src/python/mcp_server_for_foundry_labs" }
+dependencies = [
+    { name = "mcp" },
+    { name = "requests" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "mcp", specifier = ">=1.4.1" },
+    { name = "requests", specifier = ">=2.32.3" },
 ]
 
 [[package]]

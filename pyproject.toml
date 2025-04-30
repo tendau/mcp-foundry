@@ -15,3 +15,12 @@ dependencies = [
     "azure-ai-projects~=1.0.0b7",
     "aiohttp>=3.11.14",
 ]
+
+[tool.uv.workspace]
+members = ["src/python/mcp_server_for_foundry_labs"]
+
+[[tool.uv.index]]
+name = "tnrdev"
+url = "https://pkgs.dev.azure.com/tnrdev/_packaging/tnrdev/pypi/simple/"
+publish-url = "https://pkgs.dev.azure.com/tnrdev/_packaging/tnrdev/pypi/upload/"
+default = true

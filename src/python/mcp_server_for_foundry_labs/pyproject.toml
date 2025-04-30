@@ -1,0 +1,26 @@
+[project]
+name = "mcp-server-for-foundry-labs"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "mcp>=1.4.1",
+    "requests>=2.32.3",
+]
+
+[build-system]
+requires = ["hatchling", "uv-dynamic-versioning"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/mcp_server_for_foundry_labs"]
+
+[project.scripts]
+mcp-server-for-foundry-labs= "mcp_server_for_foundry_labs.__main__:main"
+
+[[tool.uv.index]]
+name = "tnrdev"
+url = "https://pkgs.dev.azure.com/tnrdev/_packaging/tnrdev/pypi/simple/"
+publish-url = "https://pkgs.dev.azure.com/tnrdev/_packaging/tnrdev/pypi/upload/"
+default = true
