@@ -6,7 +6,7 @@ import os
 load_dotenv()
 
 mcp = FastMCP("mcp-server-for-foundry-labs")
-labs_api_url = os.environ.get("LABS_API_URL", "https://https://labs-mcp-api.azurewebsites.net//api/v1")
+labs_api_url = os.environ.get("LABS_API_URL", "https://labs-mcp-api.azurewebsites.net//api/v1")
 
 
 @mcp.tool()
