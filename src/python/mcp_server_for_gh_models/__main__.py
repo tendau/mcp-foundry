@@ -103,7 +103,7 @@ This integration uses GitHub token-based access via the `models.github.ai/infere
 
 
 @mcp.tool()
-async def get_foundry_models_list() -> str:
+async def get_github_models_list() -> str:
     """Get a list of all supported projects from Azure AI Foundry."""
     url = "https://api.catalog.azureml.ms/asset-gallery/v1.0/models"
     body =  {
@@ -131,7 +131,7 @@ async def get_foundry_models_list() -> str:
     return text_models
 
 @mcp.tool()
-async def get_implementation_details_for_foundry_model(inference_model_name: str) -> str:
+async def get_implementation_details_for_github_model(inference_model_name: str) -> str:
     """
     Detailed usage guidance (scripts, docs, etc) on how to implement a particular project from GitHub Models.
     Use this tool to get the implementation details of a project.

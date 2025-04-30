@@ -6,8 +6,8 @@ This server exposes tools for Copilot to interact with models from the **Foundry
 
 ## 🛠 Tools Provided
 
-- `get_foundry_models_list`: Lists available models from the Foundry Catalog.
-- `get_implementation_details_for_foundry_model`: Retrieves implementation guidance for a specific Foundry model.
+- `get_github_models_list`: Lists available models from the Foundry Catalog.
+- `get_implementation_details_for_github_model`: Retrieves implementation guidance for a specific Foundry model.
 
 ---
 

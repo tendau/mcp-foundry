@@ -6,7 +6,7 @@ This server exposes tools for Copilot to interact with projects from **MSR Found
 
 ## 🛠 Tools Provided
 
-- `get_azure_ai_foundry_projects_list`: Lists available projects from Foundry Labs.
+- `get_azure_ai_foundry_labs_projects_list`: Lists available projects from Foundry Labs.
 - `get_implementation_details_for_labs_project`: Retrieves implementation guidance for a specific Labs project.
 
 ---

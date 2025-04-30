@@ -10,7 +10,7 @@ labs_api_url = os.environ.get("LABS_API_URL", "https://labs-mcp-api.azurewebsite
 
 
 @mcp.tool()
-async def get_azure_ai_foundry_labs_project_list() -> str:
+async def get_azure_ai_foundry_labs_projects_list() -> str:
     """Get a list of all supported projects from Azure AI Foundry Labs."""
 
     response = requests.get(f"{labs_api_url}/projects?source=afl")
