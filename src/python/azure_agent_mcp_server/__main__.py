@@ -78,9 +78,7 @@ async def query_agent(agent_id: str, query: str) -> str:
         thread_id = thread.id
 
         # Add message to thread
-        await ai_client.agents.create_message(
-            thread_id=thread_id, role=MessageRole.USER, content=query
-        )
+        await ai_client.agents.create_message(thread_id=thread_id, role=MessageRole.USER, content=query)
 
         # Process the run asynchronously
         run = await ai_client.agents.create_run(thread_id=thread_id, agent_id=agent_id)
@@ -109,9 +107,7 @@ async def query_agent(agent_id: str, query: str) -> str:
 
             # Collect citations
             for annotation in response_message.url_citation_annotations:
-                citation = (
-                    f"[{annotation.url_citation.title}]({annotation.url_citation.url})"
-                )
+                citation = f"[{annotation.url_citation.title}]({annotation.url_citation.url})"
                 if citation not in citations:
                     citations.append(citation)
 
@@ -158,7 +154,9 @@ async def query_default_agent(query: str, ctx: Context = None) -> str:
         return "Error: Azure AI Agent server is not initialized. Check server logs for details."
 
     if not default_agent_id:
-        return "Error: No default agent configured. Set DEFAULT_AGENT_ID environment variable or use connect_agent tool."
+        return (
+            "Error: No default agent configured. Set DEFAULT_AGENT_ID environment variable or use connect_agent tool."
+        )
 
     try:
         response = await query_agent(default_agent_id, query)
@@ -190,7 +188,12 @@ async def list_agents() -> str:
         return f"Error listing agents: {str(e)}"
 
 
-if __name__ == "__main__":
+def main() -> None:
+    """Run the main function of starting the MCP server"""
     status = "successfully initialized" if server_initialized else "initialization failed"
     print(f"\n{'='*50}\nAzure AI Agent MCP Server {status}\nStarting server...\n{'='*50}\n")
     mcp.run()
+
+
+if __name__ == "__main__":
+    main()
