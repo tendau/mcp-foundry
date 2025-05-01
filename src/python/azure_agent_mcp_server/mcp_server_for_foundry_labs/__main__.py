@@ -16,10 +16,11 @@ async def get_azure_ai_foundry_labs_projects_list() -> str:
     response = requests.get(f"{labs_api_url}/projects?source=afl")
     if response.status_code != 200:
         return f"Error fetching projects from API: {response.status_code}"
-    
+
     project_reponse = response.json()
 
-    return project_reponse['projects']
+    return project_reponse["projects"]
+
 
 @mcp.tool()
 async def get_implementation_details_for_labs_project(project_name: str) -> str:
@@ -35,10 +36,11 @@ async def get_implementation_details_for_labs_project(project_name: str) -> str:
     response = requests.get(f"{labs_api_url}/projects/{project_name}/implementation")
     if response.status_code != 200:
         return f"Error fetching projects from API: {response.status_code}"
-    
+
     project_response = response.json()
 
     return project_response
+
 
 @mcp.resource("foundry://copilot-instructions")
 def get_foundry_copilot_instructions() -> str:
@@ -47,9 +49,16 @@ def get_foundry_copilot_instructions() -> str:
     response = requests.get(f"{labs_api_url}/resources/resource/copilot-instructions.md")
     if response.status_code != 200:
         return f"Error fetching instructions from API: {response.status_code}"
-    
+
     copilot_instructions = response.json()
-    return copilot_instructions['resource']
-    
-if __name__ == "__main__":
+    return copilot_instructions["resource"]
+
+
+def main() -> None:
+    """Runs the MCP server"""
+    print("Starting MCP server")
     mcp.run(transport="stdio")
+
+
+if __name__ == "__main__":
+    main()
