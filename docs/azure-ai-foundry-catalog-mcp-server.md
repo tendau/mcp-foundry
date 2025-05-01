@@ -16,6 +16,9 @@ Explore and use models from **Azure AI Foundry Catalog** (currently supports Git
 </a>
 
 > 🛠️ **This will fork a template repo with minimal setup for MCP Servers so you can quickly build your own prototypes.**
+> Included MCP Servers:
+> - MCP Server for Azure AI Foundry Catalog (this server)
+> - [MCP Server for Azure AI Foundry Labs](./azure-ai-foundry-labs-mcp-server.md)
 
 ---
 
