@@ -1,6 +1,6 @@
-# 🧠 MCP Server for GitHub Models
+# 🧠 MCP Server for Azure AI Foundry Catalog
 
-Explore and use models from **Azure AI Foundry Catalog** (GitHub Models currently supported.
+Explore and use models from **Azure AI Foundry Catalog** (currently supports GitHub Models).
 
 ---
 

@@ -1,6 +1,6 @@
-# 🧪 MCP Server for Foundry Labs
+# 🧪 MCP Server for Azure AI Foundry Labs
 
-Prototype with state-of-the-art projects from **MSR Foundry Labs**.
+Prototype with state-of-the-art projects led by Microsoft Research from **Azure AI Foundry Labs**.
 
 ---
 
