@@ -6,8 +6,8 @@ Explore and use models from **Azure AI Foundry Catalog** (currently supports Git
 
 ## 🛠 Tools Provided
 
-- `get_github_models_list`: Lists available models from the Foundry Catalog.
-- `get_implementation_details_for_github_model`: Retrieves implementation guidance for a specific Foundry model.
+- `get_foundry_models_list`: Lists available models from the Foundry Catalog.
+- `get_implementation_details_for_foundry_model`: Retrieves implementation guidance for a specific Foundry model.
 
 ---
 
