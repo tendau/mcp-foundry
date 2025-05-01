@@ -16,6 +16,7 @@ Prototype with state-of-the-art projects led by Microsoft Research from **Azure 
 </a>
 
 > 🛠️ **This will fork a template repo with minimal setup for MCP Servers so you can quickly build your own prototypes.**
+>
 > Included MCP Servers:
 > - MCP Server for Azure AI Foundry Labs (this server)
 > - [MCP Server for Azure AI Foundry Catalog](./azure-ai-foundry-catalog-mcp-server.md)
@@ -28,6 +29,7 @@ Prototype with state-of-the-art projects led by Microsoft Research from **Azure 
 
 1. Click the **"Use this template"** button above to create your own copy of the project.
 2. Open your new repo in **GitHub Codespaces** — the servers will start automatically via the dev container.
+3. GitHub Codespaces will show you README.md. Follow instructions there to get started!
 
 ---
 
