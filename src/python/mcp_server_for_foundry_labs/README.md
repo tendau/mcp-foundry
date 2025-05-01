@@ -1,6 +1,6 @@
 # 🧪 MCP Server for Foundry Labs
 
-This server exposes tools for Copilot to interact with projects from **MSR Foundry Labs**.
+Prototype with state-of-the-art projects from **MSR Foundry Labs**.
 
 ---
 
@@ -11,7 +11,12 @@ This server exposes tools for Copilot to interact with projects from **MSR Found
 
 ---
 
-[![Use The Template](https://img.shields.io/badge/-Use%20this%20template-2ea44f?style=for-the-badge&logo=github)](https://github.com/tendau/foundrylabsagent/generate)
+<a href="https://github.com/tendau/foundrylabsagent/generate" target="_blank">
+  <img src="https://img.shields.io/badge/-Use%20this%20template-2ea44f?style=for-the-badge&logo=github" alt="Use The Template">
+</a>
+
+> 🛠️ **This will fork a template repo with minimal setup for MCP Servers so you can quickly build your own prototypes.**
+
 
 ---
 
