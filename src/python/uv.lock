@@ -154,7 +154,7 @@ dependencies = [
     { name = "aiohttp" },
     { name = "azure-ai-projects" },
     { name = "azure-identity" },
-    { name = "mcp", extra = ["cli"] },
+    { name = "mcp" },
     { name = "python-dotenv" },
 ]
 
@@ -163,7 +163,7 @@ requires-dist = [
     { name = "aiohttp", specifier = ">=3.11.14" },
     { name = "azure-ai-projects", specifier = "~=1.0.0b7" },
     { name = "azure-identity", specifier = "~=1.21.0" },
-    { name = "mcp", extras = ["cli"], specifier = "~=1.4.1" },
+    { name = "mcp", specifier = "~=1.4.1" },
     { name = "python-dotenv", specifier = "~=1.0.1" },
 ]
 
@@ -572,18 +572,6 @@ wheels = [
 ]
 
 [[package]]
-name = "markdown-it-py"
-version = "3.0.0"
-source = { registry = "https://pkgs.dev.azure.com/tnrdev/_packaging/tnrdev/pypi/simple/" }
-dependencies = [
-    { name = "mdurl" },
-]
-sdist = { url = "https://pkgs.dev.azure.com/tnrdev/_packaging/9c84484a-dcfc-4466-8766-52da4689a2cb/pypi/download/markdown-it-py/3/markdown-it-py-3.0.0.tar.gz", hash = "sha256:e3f60a94fa066dc52ec76661e37c851cb232d92f9886b15cb560aaada2df8feb" }
-wheels = [
-    { url = "https://pkgs.dev.azure.com/tnrdev/_packaging/9c84484a-dcfc-4466-8766-52da4689a2cb/pypi/download/markdown-it-py/3/markdown_it_py-3.0.0-py3-none-any.whl", hash = "sha256:355216845c60bd96232cd8d8c40e8f9765cc86f46880e43a8fd22dc1a1a8cab1" },
-]
-
-[[package]]
 name = "mcp"
 version = "1.4.1"
 source = { registry = "https://pkgs.dev.azure.com/tnrdev/_packaging/tnrdev/pypi/simple/" }
@@ -600,21 +588,6 @@ dependencies = [
 sdist = { url = "https://pkgs.dev.azure.com/tnrdev/_packaging/9c84484a-dcfc-4466-8766-52da4689a2cb/pypi/download/mcp/1.4.1/mcp-1.4.1.tar.gz", hash = "sha256:b9655d2de6313f9d55a7d1df62b3c3fe27a530100cc85bf23729145b0dba4c7a" }
 wheels = [
     { url = "https://pkgs.dev.azure.com/tnrdev/_packaging/9c84484a-dcfc-4466-8766-52da4689a2cb/pypi/download/mcp/1.4.1/mcp-1.4.1-py3-none-any.whl", hash = "sha256:a7716b1ec1c054e76f49806f7d96113b99fc1166fc9244c2c6f19867cb75b593" },
-]
-
-[package.optional-dependencies]
-cli = [
-    { name = "python-dotenv" },
-    { name = "typer" },
-]
-
-[[package]]
-name = "mdurl"
-version = "0.1.2"
-source = { registry = "https://pkgs.dev.azure.com/tnrdev/_packaging/tnrdev/pypi/simple/" }
-sdist = { url = "https://pkgs.dev.azure.com/tnrdev/_packaging/9c84484a-dcfc-4466-8766-52da4689a2cb/pypi/download/mdurl/0.1.2/mdurl-0.1.2.tar.gz", hash = "sha256:bb413d29f5eea38f31dd4754dd7377d4465116fb207585f97bf925588687c1ba" }
-wheels = [
-    { url = "https://pkgs.dev.azure.com/tnrdev/_packaging/9c84484a-dcfc-4466-8766-52da4689a2cb/pypi/download/mdurl/0.1.2/mdurl-0.1.2-py3-none-any.whl", hash = "sha256:84008a41e51615a49fc9966191ff91509e3c40b939176e643fd50a5c2196b8f8" },
 ]
 
 [[package]]
@@ -955,15 +928,6 @@ wheels = [
 ]
 
 [[package]]
-name = "pygments"
-version = "2.19.1"
-source = { registry = "https://pkgs.dev.azure.com/tnrdev/_packaging/tnrdev/pypi/simple/" }
-sdist = { url = "https://pkgs.dev.azure.com/tnrdev/_packaging/9c84484a-dcfc-4466-8766-52da4689a2cb/pypi/download/pygments/2.19.1/pygments-2.19.1.tar.gz", hash = "sha256:61c16d2a8576dc0649d9f39e089b5f02bcd27fba10d8fb4dcc28173f7a45151f" }
-wheels = [
-    { url = "https://pkgs.dev.azure.com/tnrdev/_packaging/9c84484a-dcfc-4466-8766-52da4689a2cb/pypi/download/pygments/2.19.1/pygments-2.19.1-py3-none-any.whl", hash = "sha256:9ea1544ad55cecf4b8242fab6dd35a93bbce657034b0611ee383099054ab6d8c" },
-]
-
-[[package]]
 name = "pyjwt"
 version = "2.10.1"
 source = { registry = "https://pkgs.dev.azure.com/tnrdev/_packaging/tnrdev/pypi/simple/" }
@@ -999,29 +963,6 @@ dependencies = [
 sdist = { url = "https://pkgs.dev.azure.com/tnrdev/_packaging/9c84484a-dcfc-4466-8766-52da4689a2cb/pypi/download/requests/2.32.3/requests-2.32.3.tar.gz", hash = "sha256:55365417734eb18255590a9ff9eb97e9e1da868d4ccd6402399eaf68af20a760" }
 wheels = [
     { url = "https://pkgs.dev.azure.com/tnrdev/_packaging/9c84484a-dcfc-4466-8766-52da4689a2cb/pypi/download/requests/2.32.3/requests-2.32.3-py3-none-any.whl", hash = "sha256:70761cfe03c773ceb22aa2f671b4757976145175cdfca038c02654d061d6dcc6" },
-]
-
-[[package]]
-name = "rich"
-version = "14.0.0"
-source = { registry = "https://pkgs.dev.azure.com/tnrdev/_packaging/tnrdev/pypi/simple/" }
-dependencies = [
-    { name = "markdown-it-py" },
-    { name = "pygments" },
-    { name = "typing-extensions", marker = "python_full_version < '3.11'" },
-]
-sdist = { url = "https://pkgs.dev.azure.com/tnrdev/_packaging/9c84484a-dcfc-4466-8766-52da4689a2cb/pypi/download/rich/14/rich-14.0.0.tar.gz", hash = "sha256:82f1bc23a6a21ebca4ae0c45af9bdbc492ed20231dcb63f297d6d1021a9d5725" }
-wheels = [
-    { url = "https://pkgs.dev.azure.com/tnrdev/_packaging/9c84484a-dcfc-4466-8766-52da4689a2cb/pypi/download/rich/14/rich-14.0.0-py3-none-any.whl", hash = "sha256:1c9491e1951aac09caffd42f448ee3d04e58923ffe14993f6e83068dc395d7e0" },
-]
-
-[[package]]
-name = "shellingham"
-version = "1.5.4"
-source = { registry = "https://pkgs.dev.azure.com/tnrdev/_packaging/tnrdev/pypi/simple/" }
-sdist = { url = "https://pkgs.dev.azure.com/tnrdev/_packaging/9c84484a-dcfc-4466-8766-52da4689a2cb/pypi/download/shellingham/1.5.4/shellingham-1.5.4.tar.gz", hash = "sha256:8dbca0739d487e5bd35ab3ca4b36e11c4078f3a234bfce294b0a0291363404de" }
-wheels = [
-    { url = "https://pkgs.dev.azure.com/tnrdev/_packaging/9c84484a-dcfc-4466-8766-52da4689a2cb/pypi/download/shellingham/1.5.4/shellingham-1.5.4-py2.py3-none-any.whl", hash = "sha256:7ecfff8f2fd72616f7481040475a65b2bf8af90a56c89140852d1120324e8686" },
 ]
 
 [[package]]
@@ -1065,21 +1006,6 @@ dependencies = [
 sdist = { url = "https://pkgs.dev.azure.com/tnrdev/_packaging/9c84484a-dcfc-4466-8766-52da4689a2cb/pypi/download/starlette/0.46.2/starlette-0.46.2.tar.gz", hash = "sha256:7f7361f34eed179294600af672f565727419830b54b7b084efe44bb82d2fccd5" }
 wheels = [
     { url = "https://pkgs.dev.azure.com/tnrdev/_packaging/9c84484a-dcfc-4466-8766-52da4689a2cb/pypi/download/starlette/0.46.2/starlette-0.46.2-py3-none-any.whl", hash = "sha256:595633ce89f8ffa71a015caed34a5b2dc1c0cdb3f0f1fbd1e69339cf2abeec35" },
-]
-
-[[package]]
-name = "typer"
-version = "0.15.3"
-source = { registry = "https://pkgs.dev.azure.com/tnrdev/_packaging/tnrdev/pypi/simple/" }
-dependencies = [
-    { name = "click" },
-    { name = "rich" },
-    { name = "shellingham" },
-    { name = "typing-extensions" },
-]
-sdist = { url = "https://pkgs.dev.azure.com/tnrdev/_packaging/9c84484a-dcfc-4466-8766-52da4689a2cb/pypi/download/typer/0.15.3/typer-0.15.3.tar.gz", hash = "sha256:818873625d0569653438316567861899f7e9972f2e6e0c16dab608345ced713c" }
-wheels = [
-    { url = "https://pkgs.dev.azure.com/tnrdev/_packaging/9c84484a-dcfc-4466-8766-52da4689a2cb/pypi/download/typer/0.15.3/typer-0.15.3-py3-none-any.whl", hash = "sha256:c86a65ad77ca531f03de08d1b9cb67cd09ad02ddddf4b34745b5008f43b239bd" },
 ]
 
 [[package]]
