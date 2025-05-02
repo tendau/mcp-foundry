@@ -18,6 +18,7 @@ Prototype with state-of-the-art projects led by Microsoft Research from **Azure 
 > 🛠️ **This will fork a template repo with minimal setup for MCP Servers so you can quickly build your own prototypes.**
 >
 > Included MCP Servers:
+>
 > - MCP Server for Azure AI Foundry Labs (this server)
 > - [MCP Server for Azure AI Foundry Catalog](./azure-ai-foundry-catalog-mcp-server.md)
 
@@ -33,35 +34,52 @@ Prototype with state-of-the-art projects led by Microsoft Research from **Azure 
 
 ---
 
-### 🧑‍🔧 Manual Setup
+## 🧑‍🔧 Manual Setup
 
-1. Clone the repository:
+### 1. Install Python and pipx
 
-   ```bash
-   git clone https://github.com/tendau/foundrylabsagent
-   cd foundrylabsagent
-   ```
+Make sure you have **Python** installed along with **pipx**.  
+Most modern Python installations include `pipx`, but if you don’t have it, you can install it with:
 
-2. Add the following entry to your MCP client (e.g., Copilot Labs) configuration:
-
-   ```json
-   {
-     "Foundry Labs MCP": {
-       "command": "uv",
-       "args": [
-         "--directory",
-         "C:/Users/your-username/path/to/mcp-foundry/src/python",
-         "run",
-         "-m",
-         "mcp_server_for_foundry_labs"
-       ]
-     }
-   }
-   ```
-
-   > Adjust the path above to reflect your local environment.
+```bash
+python -m pip install --user pipx
+python -m pipx ensurepath
+```
 
 ---
+
+### 2. Configure Your MCP Client
+
+Open the **MCP settings** in your client of choice.  
+Follow the appropriate link below for detailed instructions:
+
+- [Visual Studio Code – Copilot Chat](https://code.visualstudio.com/docs/copilot/chat/mcp-servers)
+- [Claude](https://modelcontextprotocol.io/quickstart/user)
+- [Cursor](https://docs.cursor.com/context/model-context-protocol)
+
+---
+
+### 3. Add Foundry Labs MCP Entry
+
+Copy and paste the following JSON block into your MCP client’s configuration:
+
+```json
+"MCP Server For Foundry Labs": {
+  "command": "pipx",
+  "args": [
+    "run",
+    "--spec",
+    "git+https://github.com/tendau/mcp-foundry.git@topic/folderstruct#subdirectory=src/python",
+    "mcp-server-for-foundry-labs"
+  ]
+}
+```
+
+> This will automatically install and run the MCP server for Foundry Labs using `pipx`.
+
+---
+
+You're now ready to use Foundry Labs with your preferred MCP-enabled client!
 
 ## 💡 Notes
 
