@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "azure-foundry-mcps"
-version = "0.1.1"
+version = "0.1.2"
 description = "Azure AI Agent Service MCP Server"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -17,12 +17,6 @@ dependencies = [
 ]
 
 [project.scripts]
-azure-agent-mcp-server = "azure-foundry-mcps.azure_agent_mcp_server.__main__:main"
-mcp-server-for-foundry-labs = "azure-foundry-mcps.mcp_server_for_foundry_labs.__main__:main"
-mcp-server-for-foundry-models= "azure-foundry-mcps.mcp_server_for_foundry_models.__main__:main"
-
-[[tool.uv.index]]
-name = "tnrdev"
-url = "https://pkgs.dev.azure.com/tnrdev/_packaging/tnrdev/pypi/simple/"
-publish-url = "https://pkgs.dev.azure.com/tnrdev/_packaging/tnrdev/pypi/upload/"
-default = true
+azure-agent-mcp-server = "azure_foundry_mcps.azure_agent_mcp_server.__main__:main"
+mcp-server-for-foundry-labs = "azure_foundry_mcps.mcp_server_for_foundry_labs.__main__:main"
+mcp-server-for-foundry-models= "azure_foundry_mcps.mcp_server_for_foundry_models.__main__:main"
