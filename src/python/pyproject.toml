@@ -17,6 +17,6 @@ dependencies = [
 ]
 
 [project.scripts]
-azure-agent-mcp-server = "azure_foundry_mcps.azure_agent_mcp_server.__main__:main"
-mcp-server-for-foundry-labs = "azure_foundry_mcps.mcp_server_for_foundry_labs.__main__:main"
-mcp-server-for-foundry-models = "azure_foundry_mcps.mcp_server_for_foundry_models.__main__:main"
+azure-agent-mcp-server = "azure_ai_foundry_mcps.azure_agent_mcp_server.__main__:main"
+azure-ai-foundry-labs-mcp-server = "azure_ai_foundry_mcps.azure_ai_foundry_labs_mcp_server.__main__:main"
+azure-ai-foundry-models-mcp-server = "azure_ai_foundry_mcps.azure_ai_foundry_models_mcp_server.__main__:main"

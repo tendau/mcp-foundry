@@ -70,7 +70,7 @@ Copy and paste the following JSON block into your MCP client’s configuration:
     "run",
     "--spec",
     "git+https://github.com/tendau/mcp-foundry.git@topic/folderstruct#subdirectory=src/python",
-    "mcp-server-for-foundry-labs"
+    "azure-ai-foundry-labs-mcp-server"
   ]
 }
 ```
