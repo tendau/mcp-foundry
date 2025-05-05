@@ -1,6 +1,6 @@
-# Azure AI Foundry MCPs
+# Azure AI Foundry MCP Servers
 
-**Azure AI Foundry MCPs** is a Python package that bundles three modular MCP (Model Control Plane) servers. Each server can be installed and run independently using `pipx`, making it easy to integrate and test AI workflows in isolation.
+**Azure AI Foundry MCP Servers** is a Python package that bundles three modular MCP (Model Control Plane) servers. Each server can be installed and run independently using `pipx`, making it easy to integrate and test AI workflows in isolation.
 
 ## Included MCP Servers
 
