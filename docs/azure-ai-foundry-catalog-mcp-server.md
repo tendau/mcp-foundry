@@ -11,7 +11,7 @@ Explore and use models from **Azure AI Foundry Catalog** (currently supports Git
 
 ---
 
-<a href="https://github.com/tendau/foundrylabsagent/generate" target="_blank">
+<a href="https://github.com/azure-ai-foundry/foundry-models-playground/generate" target="_blank">
   <img src="https://img.shields.io/badge/-Use%20this%20template-2ea44f?style=for-the-badge&logo=github" alt="Use The Template">
 </a>
 
@@ -70,7 +70,7 @@ Copy and paste the following JSON block into your MCP client’s configuration:
     "run",
     "--spec",
     "git+https://github.com/tendau/mcp-foundry.git@topic/folderstruct#subdirectory=src/python",
-    "mcp-server-for-foundry-models"
+    "azure-ai-foundry-models-mcp-server"
   ]
 }
 ```

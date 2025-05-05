@@ -1,18 +1,14 @@
-# azure-agent-mcp-server
-The python project  for the MCP servers, powered by uv.
+# Azure AI Foundry MCP Servers
 
-## Publishing
-To build and publish this package, we use uv and publish to our team's Azure Artifacts Feed.
+**Azure AI Foundry MCP Servers** is a Python package that bundles three modular MCP (Model Control Plane) servers. Each server can be installed and run independently using `pipx`, making it easy to integrate and test AI workflows in isolation.
 
-1. Set up Azure Artifacts feed credentials through env variables. On powershell, set `$env:UV_INDEX_TNRDEV_USERNAME="dummy"` and `$env:UV_INDEX_TNRDEV_PASSWORD=<personal_access_token>`.
-2. Update the version number in pyproject.toml to your new desired version.
-3. Build the distribution: `uv build`. You should see the correctly versioned distribution appear in a `dist/` folder.
-4. Publish: `uv publish --index tnrdev`
+## Included MCP Servers
 
+- [**Azure AI Agent MCP Server**](../../docs/azure-ai-agent-service-mcp-server.md)  
+  Connect to Azure AI Agents and use them in any MCP client.
 
-## Running the MCP server using uvx
-The easiest way to run one of the  MCP servers is through uvx, which will do a cached install of the package.
-For example, to run the `mcp-server-for-foundry-labs`, run the following command:
-```bash
-uvx --index-url "https://dummy:<personal-access-token>@pkgs.dev.azure.com/tnrdev/_packaging/tnrdev/pypi/simple/" --from azure-agent-mcp-server mcp-server-for-foundry-labs
-```
+- [**Azure AI Foundry Labs MCP Server**](./docs/azure-ai-foundry-labs-mcp-server.md)  
+  Prototype with state-of-the-art projects led by Microsoft Research from Azure AI Foundry Labs.
+
+- [**Azure AI Foundry Models MCP Server**](./docs/azure-ai-foundry-catalog-mcp-server.md)  
+  Explore and use models from the Azure AI Foundry Catalog (currently supports Github Models).

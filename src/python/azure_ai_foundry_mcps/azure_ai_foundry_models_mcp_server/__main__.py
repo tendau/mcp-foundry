@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-mcp = FastMCP("mcp-server-for-foundry-catalog")
+mcp = FastMCP("azure-ai-foundry-models-mcp-server")
 labs_api_url = os.environ.get("LABS_API_URL", "https://labs-mcp-api.azurewebsites.net//api/v1")
 
 
