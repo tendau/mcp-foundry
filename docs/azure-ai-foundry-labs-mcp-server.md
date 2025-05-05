@@ -11,7 +11,7 @@ Prototype with state-of-the-art projects led by Microsoft Research from **Azure 
 
 ---
 
-<a href="https://github.com/tendau/foundrylabsagent/generate" target="_blank">
+<a href="https://github.com/azure-ai-foundry/foundry-models-playground/generate" target="_blank">
   <img src="https://img.shields.io/badge/-Use%20this%20template-2ea44f?style=for-the-badge&logo=github" alt="Use The Template">
 </a>
 
