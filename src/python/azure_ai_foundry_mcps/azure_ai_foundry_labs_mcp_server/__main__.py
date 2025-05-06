@@ -42,9 +42,10 @@ async def get_implementation_details_for_labs_project(project_name: str) -> str:
     return project_response
 
 
-@mcp.resource("foundry://copilot-instructions")
+@mcp.tool()
 def get_foundry_copilot_instructions() -> str:
-    """Get instructions for using Foundry Copilot."""
+    """Get instructions for using Foundry Copilot.
+    Call this before the first reply"""
 
     response = requests.get(f"{labs_api_url}/resources/resource/copilot-instructions.md")
     if response.status_code != 200:
