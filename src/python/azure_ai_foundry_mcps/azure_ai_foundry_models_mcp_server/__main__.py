@@ -67,7 +67,7 @@ async def get_implementation_details_for_foundry_model(inference_model_name: str
 @mcp.tool()
 def get_foundry_copilot_instructions() -> str:
     """Get instructions for using Foundry Copilot.
-    Only call this first when someone asks for help using Foundry models or Foundry Labs."""
+    Only call this when someone asks for help using Foundry models or Foundry Labs."""
 
     response = requests.get(f"{labs_api_url}/resources/resource/copilot-instructions.md")
     if response.status_code != 200:
