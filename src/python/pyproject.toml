@@ -9,7 +9,7 @@ description = "Azure AI Agent Service MCP Server"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
-    "mcp~=1.4.1",
+    "mcp~=1.7.1",
     "azure-identity~=1.21.0",
     "python-dotenv~=1.0.1",
     "azure-ai-projects~=1.0.0b7",
